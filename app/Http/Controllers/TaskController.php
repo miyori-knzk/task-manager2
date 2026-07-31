@@ -6,7 +6,6 @@ use App\Http\Requests\TaskRequest;
 use App\Models\Category;
 use App\Models\Task;
 
-
 class TaskController extends Controller
 {
     /**
@@ -19,6 +18,7 @@ class TaskController extends Controller
         $tasks = auth()->user()->tasks()->with('category')->orderBy('priority', 'desc')->orderBy('created_at', 'desc')->get();
 
         $data['tasks'] = $tasks;
+
         return view('tasks.index', $data);
     }
 
@@ -28,7 +28,7 @@ class TaskController extends Controller
     public function create()
     {
         $data = [];
-        
+
         $categories = Category::orderBy('name')->get();
 
         $data['categories'] = $categories;
@@ -56,7 +56,7 @@ class TaskController extends Controller
     {
         $data = [];
 
-        if($task->user_id <> auth()->id()){
+        if ($task->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -71,7 +71,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if($task->user_id <> auth()->id()){
+        if ($task->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -83,7 +83,7 @@ class TaskController extends Controller
         $data['categories'] = $categories;
 
         return view('tasks.edit', $data);
-        
+
     }
 
     /**
@@ -91,14 +91,14 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
-        if($task->user_id <> auth()->id()){
+        if ($task->user_id != auth()->id()) {
             abort(403);
         }
 
         $task->update($request->validated());
 
         return redirect()->route('tasks.index')->with('success', 'タスクを更新しました。');
-        
+
     }
 
     /**
@@ -106,7 +106,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-          if($task->user_id <> auth()->id()){
+        if ($task->user_id != auth()->id()) {
             abort(403);
         }
 

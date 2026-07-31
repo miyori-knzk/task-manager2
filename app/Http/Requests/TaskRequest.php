@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TaskRequest extends FormRequest
@@ -17,7 +18,7 @@ class TaskRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -31,7 +32,7 @@ class TaskRequest extends FormRequest
 
     public function messages(): array
     {
-        return[
+        return [
             'category_id.required' => 'カテゴリーを選択してください。',
             'category_id.exists' => '選択されたカテゴリーは存在しません。',
             'title.required' => 'タイトルは必須です。',
