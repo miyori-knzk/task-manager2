@@ -56,11 +56,11 @@ class TaskController extends Controller
     {
         $data = [];
 
-        if ($task->user_id != auth()->id()) {
-            abort(403);
-        }
+        // $this->authorize('view', $task);
+        $this->authorize('nomalPolicy', $task);
 
         $task->load('category');
+
         $data['task'] = $task;
 
         return view('tasks.show', $data);
@@ -71,9 +71,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if ($task->user_id != auth()->id()) {
-            abort(403);
-        }
+        // $this->authorize('update', $task);
+        $this->authorize('nomalPolicy', $task);
+
 
         $data = [];
 
@@ -91,9 +91,8 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
-        if ($task->user_id != auth()->id()) {
-            abort(403);
-        }
+        // $this->authorize('update', $task);
+        $this->authorize('nomalPolicy', $task);
 
         $task->update($request->validated());
 
@@ -106,9 +105,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if ($task->user_id != auth()->id()) {
-            abort(403);
-        }
+        // $this->authorize('delete', $task);
+        $this->authorize('nomalPolicy', $task);
 
         $task->delete();
 
