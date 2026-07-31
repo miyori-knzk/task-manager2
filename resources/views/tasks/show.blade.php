@@ -43,19 +43,21 @@
                 <p class="text-gray-800">{{ $task->created_at->format('Y年m月d日') }}</p>
             </div>
         </div>
-        
-        {{-- アクションボタン --}}
-        <div class="flex space-x-4 mt-8 pt-6 border-t border-gray-200">
-            <a href="{{ route('tasks.edit', $task) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                編集
-            </a>
-            <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-                    削除
-                </button>
-            </form>
-        </div>
+
+        @can('nomalPolicy', $task)
+            {{-- アクションボタン --}}
+            <div class="flex space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <a href="{{ route('tasks.edit', $task) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    編集
+                </a>
+                <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                        削除
+                    </button>
+                </form>
+            </div>
+        @endcan
     </div>
 </x-app-layout>
