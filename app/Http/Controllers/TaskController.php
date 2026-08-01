@@ -56,8 +56,8 @@ class TaskController extends Controller
     {
         $data = [];
 
-        // $this->authorize('view', $task);
-        $this->authorize('nomalPolicy', $task);
+        $this->authorize('view', $task);
+        // $this->authorize('nomalPolicy', $task);
 
         $task->load('category');
 
@@ -71,9 +71,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        // $this->authorize('update', $task);
-        $this->authorize('nomalPolicy', $task);
-
+        $this->authorize('update', $task);
+        // $this->authorize('nomalPolicy', $task);
 
         $data = [];
 
@@ -91,8 +90,8 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
-        // $this->authorize('update', $task);
-        $this->authorize('nomalPolicy', $task);
+        $this->authorize('update', $task);
+        // $this->authorize('nomalPolicy', $task);
 
         $task->update($request->validated());
 
@@ -105,8 +104,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        // $this->authorize('delete', $task);
-        $this->authorize('nomalPolicy', $task);
+        $this->authorize('delete', $task);
+        // $this->authorize('nomalPolicy', $task);
 
         $task->delete();
 

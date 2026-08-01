@@ -4,14 +4,15 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
+
 // use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
-    public function nomalPolicy(User $user, Task $task): bool
-    {
-        return $user->id === $task->user_id;
-    }
+    // public function nomalPolicy(User $user, Task $task): bool
+    // {
+    //     return $user->id === $task->user_id;
+    // }
 
     /**
      * Determine whether the user can view the model.
@@ -36,5 +37,4 @@ class TaskPolicy
     {
         return $user->id === $task->user_id;
     }
-
 }
