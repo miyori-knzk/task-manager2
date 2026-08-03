@@ -4,14 +4,14 @@ namespace Tests\Feature;
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test */
     public function 登録画面を表示できる(): void
     {
@@ -117,5 +117,4 @@ class RegistrationTest extends TestCase
 
         $responce->assertSessionHasErrors('password');
     }
-
 }
