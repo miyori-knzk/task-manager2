@@ -37,7 +37,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        dd($request->validated());
         Category::create($request->validated());
 
         return redirect()->route('categories.index')->with('succsess', 'カテゴリーを作成しました');
@@ -48,7 +47,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        dd($category);
         $data = [];
 
         $category->load('tasks');
@@ -66,8 +64,6 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        dd($category);
-
         return view('categories.edit', compact('category'));
     }
 
@@ -86,7 +82,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if ($category->tasls()->vount() > 0) {
+        if ($category->tasks()->count() > 0) {
             return redirect()->route('categories.index')->with('error', 'タスクが紐づいているカテゴリーは削除できません。');
         }
 
