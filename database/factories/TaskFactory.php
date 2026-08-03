@@ -2,15 +2,13 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Task;
-
-
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ * @extends Factory<Task>
  */
 class TaskFactory extends Factory
 {
@@ -24,7 +22,7 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'priority' => fake()->randomElement([1,2,3]),
+            'priority' => fake()->randomElement([1, 2, 3]),
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
         ];

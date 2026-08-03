@@ -41,7 +41,7 @@ class CategoryControllerTest extends TestCase
     public function ユーザーはカテゴリー作成画面を表示できる(): void
     {
         $user = User::factory()->create();
-        
+
         $responce = $this->actingAs($user)->get(route('categories.create'));
 
         $responce->assertStatus(200);
@@ -51,24 +51,23 @@ class CategoryControllerTest extends TestCase
     public function ユーザーはカテゴリーを作成できる(): void
     {
         $user = User::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('categories.store'), [
             'name' => 'テストカテゴリー',
         ]);
 
         $responce->assertRedirect(route('categories.index'));
-        $this->assertDatabaseHas('categories',[
+        $this->assertDatabaseHas('categories', [
             'name' => 'テストカテゴリー',
         ]);
 
     }
 
-    
     /** @test */
     public function カテゴリー名が空だとバリデーションエラーになる(): void
     {
         $user = User::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('categories.store'), [
             'name' => '',
         ]);
@@ -81,7 +80,7 @@ class CategoryControllerTest extends TestCase
     public function カテゴリー名は255文字まで入力できる(): void
     {
         $user = User::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('categories.store'), [
             'name' => str_repeat('あ', 255),
         ]);
@@ -95,8 +94,8 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function カテゴリー名は256文字以上だとバリデーションエラーになる(): void
     {
-            $user = User::factory()->create();
-        
+        $user = User::factory()->create();
+
         $responce = $this->actingAs($user)->post(route('categories.store'), [
             'name' => str_repeat('あ', 256),
         ]);
@@ -109,7 +108,7 @@ class CategoryControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
-        
+
         $responce = $this->actingAs($user)->get(route('categories.edit', $category));
 
         $responce->assertStatus(200);
@@ -122,7 +121,7 @@ class CategoryControllerTest extends TestCase
         $user = User::factory()->create();
         $category = Category::factory()->create(['name' => '更新前のカテゴリー']);
 
-        $responce = $this->actingAs($user)->put(route('categories.update', $category),[
+        $responce = $this->actingAs($user)->put(route('categories.update', $category), [
             'name' => '更新後のカテゴリー',
         ]);
 
@@ -141,7 +140,7 @@ class CategoryControllerTest extends TestCase
         $responce = $this->actingAs($user)->delete(route('categories.destroy', $category));
 
         $responce->assertRedirect(route('categories.index'));
-        $this->assertDatabaseMissing('categories',[ 'id' => $category->id]);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
 
     /** @test */
@@ -158,7 +157,7 @@ class CategoryControllerTest extends TestCase
 
         $responce->assertRedirect(route('categories.index'));
         $responce->assertSessionHas('error');
-        $this->assertDatabaseHas('categories',[ 'id' => $category->id]);
-        
+        $this->assertDatabaseHas('categories', ['id' => $category->id]);
+
     }
 }

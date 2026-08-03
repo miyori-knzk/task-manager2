@@ -11,6 +11,7 @@ use Tests\TestCase;
 class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test */
     public function ユーザーはタスク一覧を取得できる(): void
     {
@@ -39,11 +40,11 @@ class TaskControllerTest extends TestCase
     public function ユーザーはタスク作成画面を表示できる(): void
     {
         $user = User::factory()->create();
-        
+
         $responce = $this->actingAs($user)->get(route('tasks.create'));
 
         $responce->assertStatus(200);
-        $responce->assertViewHas('categories'); // これいらないの？  
+        $responce->assertViewHas('categories'); // これいらないの？
     }
 
     /** @test */
@@ -51,7 +52,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('tasks.store'), [
             'title' => 'テストタスク',
             'description' => 'テストの説明',
@@ -60,20 +61,18 @@ class TaskControllerTest extends TestCase
         ]);
 
         $responce->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks',[
+        $this->assertDatabaseHas('tasks', [
             'title' => 'テストタスク',
             'user_id' => $user->id,
         ]);
     }
 
-    
     /** @test */
     public function タスクタイトルが空だとバリデーションエラーになる(): void
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        
         $responce = $this->actingAs($user)->post(route('tasks.store'), [
             'title' => '',
             'priority' => 2,
@@ -89,7 +88,6 @@ class TaskControllerTest extends TestCase
         $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        
         $responce = $this->actingAs($user)->post(route('tasks.store'), [
             'title' => 'テストタスク',
             'priority' => 99,
@@ -104,7 +102,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('tasks.store'), [
             'title' => str_repeat('あ', 255),
             'priority' => 2,
@@ -123,7 +121,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
-        
+
         $responce = $this->actingAs($user)->post(route('tasks.store'), [
             'title' => str_repeat('あ', 256),
             'priority' => 2,
@@ -138,7 +136,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $task = Task::factory()->create(['user_id' => $user->id]);
-        
+
         $responce = $this->actingAs($user)->get(route('tasks.edit', $task));
 
         $responce->assertStatus(200);
@@ -153,10 +151,10 @@ class TaskControllerTest extends TestCase
         $category = Category::factory()->create();
         $task = Task::factory()->create(['user_id' => $user->id]);
 
-        $responce = $this->actingAs($user)->put(route('tasks.update', $task),[
+        $responce = $this->actingAs($user)->put(route('tasks.update', $task), [
             'title' => '更新後のタイトル',
             'priority' => 2,
-            'category_id' => $category->id
+            'category_id' => $category->id,
         ]);
 
         $responce->assertRedirect(route('tasks.index'));
@@ -175,7 +173,7 @@ class TaskControllerTest extends TestCase
         $responce = $this->actingAs($user)->delete(route('tasks.destroy', $task));
 
         $responce->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseMissing('tasks',[ 'id' => $task->id]);
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }
 
     /** @test */
@@ -231,6 +229,4 @@ class TaskControllerTest extends TestCase
 
         $responce->assertForbidden();
     }
-
-
 }
