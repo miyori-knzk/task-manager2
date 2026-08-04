@@ -84,20 +84,17 @@ Windows11上のWSL(Ubuntu)で開発しています。
     ```
     cd task-manager2
     cp .env.example .env
-
     ```
 
-    .envファイルを開き、データベース情報が以下と一致していることを確認
+    .envファイルを開き、データベース情報が以下のようになっているか確認
 
     ```
-
     DB_CONNECTION=mysql
     DB_HOST=mysql
     DB_PORT=3306
     DB_DATABASE=laravel
     DB_USERNAME=sail
     DB_PASSWORD=password
-
     ```
 
 3. **Composer依存パッケージのインストール**
@@ -118,13 +115,19 @@ Windows11上のWSL(Ubuntu)で開発しています。
     ./vendor/bin/sail up -d
     ```
 
-5. **アプリケーションキーの生成**
+5. **NPM依存パッケージのインストール**
+
+    ```
+    sail npm install
+    ```
+
+6. **アプリケーションキーの生成**
 
     ```
     ./vendor/bin/sail artisan key:generate
     ```
 
-6. **データベースのマイグレーションと初期データ投入**
+7. **データベースのマイグレーションと初期データ投入**
 
     マイグレーションの実行
 
@@ -135,16 +138,16 @@ Windows11上のWSL(Ubuntu)で開発しています。
     初期データ投入
 
     ```
-    ./vendor/vin/sail artisan db:seed
+    ./vendor/bin/sail artisan db:seed
     ```
 
-7. **フロントエンドのビルド**
+8. **フロントエンドのビルド**
 
     ```
     ./vendor/bin/sail npm run build
     ```
 
-8. **アプリケーションへのアクセス**
+9. **アプリケーションへのアクセス**
     - ブラウザで<http://localhost>にアクセスしログインページが表示されるか確認し、テストユーザーでログインする  
       メールアドレス：test@test  
       パスワード：password
@@ -154,7 +157,6 @@ Windows11上のWSL(Ubuntu)で開発しています。
 
 ```
 ./vendor/bin/sail test
-./vendor/bin/sail test --coverge
 ```
 
 ## 機能一覧
