@@ -78,21 +78,30 @@ Windows11上のWSL(Ubuntu)で開発しています。
 
 2. **.envファイルの準備**
 
+    プロジェクトフォルダに移動し、
     .env.exsampleをコピーして.envを作成
 
     ```
-    cp .env.exsample .env
+    cd task-manager2
+    cp .env.example .env
+
     ```
 
     .envファイルを開き、データベース情報が以下と一致していることを確認
 
     ```
+
     DB_CONNECTION=mysql
     DB_HOST=mysql
     DB_PORT=3306
     DB_DATABASE=laravel
     DB_USERNAME=sail
     DB_PASSWORD=password
+
+    ```
+
+    ```
+
     ```
 
 3. **Composer依存パッケージのインストール**
@@ -140,12 +149,10 @@ Windows11上のWSL(Ubuntu)で開発しています。
     ```
 
 8. **アプリケーションへのアクセス**
-
-    ブラウザで<http://localhost>にアクセスしログインページが表示されるか確認
-    テストユーザーでログインする
-    メールアドレス：test@test
-    パスワード：password
-    ブラウザで<http://localhost:8080>にアクセスしphpMyAdminが表示されるか確認
+    - ブラウザで<http://localhost>にアクセスしログインページが表示されるか確認し、テストユーザーでログインする
+      メールアドレス：test@test
+      パスワード：password
+    - ブラウザで<http://localhost:8080>にアクセスしphpMyAdminが表示されるか確認
 
 ## テスト実行
 
